@@ -2,10 +2,33 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
-
+import Link from 'next/link'
+import React, { useState } from "react";
+import { useRouter } from 'next/router'
+import Auth from '@/Redux/Service/auth'
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '@/Redux/Action/authAction'
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+ const Home = () =>{
+  const dispatch = useDispatch()
+  const root = useRouter()
+    const [dataUser, setDataUser]= useState({
+        username :'',
+        password : ''
+    })
+
+    const evenHandler = nama => event =>{
+      setDataUser({...dataUser, [nama]: event.target.value})
+  }
+
+  const submit = (e:any) =>{
+    e.preventDefault();
+    dispatch(login(dataUser))
+    console.log(login)
+    root.push('/dashboard')
+
+}
   return (
     <>
       <Head>
@@ -14,110 +37,63 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <div className={styles.description}>
-          <p>
-            Get started by editing&nbsp;
-            <code className={styles.code}>pages/index.tsx</code>
-          </p>
-          <div>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
+      <><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" /><div className="bg-blue-200 flex">
+        <div className="flex-col flex ml-auto mr-auto items-center w-full lg:w-2/3 md:w-3/5">
+          <h1 className="font-bold text-2xl my-10 text-white"> Login </h1>
+          <h6>status :</h6>
+          <form  className="mt-2 flex flex-col lg:w-1/2 w-8/12">
+            <div className="flex flex-wrap items-stretch w-full mb-4 relative h-15 bg-white items-center rounded mb-6 pr-10">
+              <div className="flex -mr-px justify-center w-15 p-4">
+                <span
+                  className="flex items-center leading-normal bg-white px-3 border-0 rounded rounded-r-none text-2xl text-gray-600"
+                >
+                  <i className="fas fa-user-circle"></i>
+                </span>
+              </div>
+              <input
+                // onChange={event=>setUsername(event.target.value)}
+                type="text"
+                className="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border-0 h-10 border-grey-light rounded rounded-l-none px-3 self-center relative  font-roboto text-xl outline-none"
+                placeholder="Username" onChange={evenHandler('username')}/>
+            </div>
+            <div className="flex flex-wrap items-stretch w-full relative h-15 bg-white items-center rounded mb-4">
+              <div className="flex -mr-px justify-center w-15 p-4">
+                <span
+                  className="flex items-center leading-normal bg-white rounded rounded-r-none text-xl px-3 whitespace-no-wrap text-gray-600"
+                >
+                  <i className="fas fa-lock"></i>
+                </span>
+              </div>
+              <input
+              // onChange={event=>setPassword(event.target.value)}
+                type="password"
+                className="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border-0 h-10 px-3 relative self-center font-roboto text-xl outline-none"
+                placeholder="Password" onChange={evenHandler('password')}/>
+              <div className="flex -mr-px">
+                <span
+                  className="flex items-center leading-normal bg-white rounded rounded-l-none border-0 px-3 whitespace-no-wrap text-gray-600"
+                >
+                  <i className="fas fa-eye-slash"></i>
+                </span>
+              </div>
+            </div>
+            <a href="#" className="text-base text-white text-right font-roboto leading-normal hover:underline mb-6">Forget Password ?</a>
+            {/* <Link href="/dashboard"
+              className="bg-blue-400 py-4 text-center px-17 md:px-12 md:py-4 text-white rounded leading-tight text-xl md:text-base font-sans mt-4 mb-20"
             >
-              By{' '}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={styles.vercelLogo}
-                width={100}
-                height={24}
-                priority
-              />
-            </a>
-          </div>
+              Login
+            </Link> */}
+            <div className="flex  items-center justify-center">
+              <button onClick={submit} type='submit' className="group relative h-12 w-48 overflow-hidden rounded-lg bg-white text-lg shadow">
+                <div className="absolute inset-0 w-3 bg-amber-400 transition-all duration-[250ms] ease-out group-hover:w-full"></div>
+                <span className="relative text-black group-hover:text-white">Login</span>
+              </button>
+            </div>
+          </form>
         </div>
-
-        <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-          <div className={styles.thirteen}>
-            <Image
-              src="/thirteen.svg"
-              alt="13"
-              width={40}
-              height={31}
-              priority
-            />
-          </div>
-        </div>
-
-        <div className={styles.grid}>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Docs <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Find in-depth information about Next.js features and&nbsp;API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Learn <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Templates <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Discover and deploy boilerplate example Next.js&nbsp;projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Deploy <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Instantly deploy your Next.js site to a shareable URL
-              with&nbsp;Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
+      </div></>
     </>
   )
 }
+
+export default Home

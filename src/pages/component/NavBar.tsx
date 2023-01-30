@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function NavBar() {
   return (
-    <nav className="fixed top-0 bg-gradient-to-r from-gray-100 via-[#bce1ff] to-gray-100 shadow-md  z-50 w-full px-5 py-2 flex justify-between items-center mb-5">
+    <nav className="fixed top-0 bg-gray-800 shadow-md  z-50 w-full px-5 py-2 flex justify-between items-center mb-5">
     <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
       <div className="relative flex h-16 items-center justify-between">
         <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">

@@ -2,6 +2,7 @@ import React,{useEffect, useState} from 'react';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { doCustRequest, doDeleteCust } from '../../../Redux/Action/reducerAction';
 import { useRouter } from 'next/router';
+import {Table} from 'antd'
 export default function index() {
         const rout = useRouter()
         // let navigate = useNavigate()
@@ -23,11 +24,47 @@ export default function index() {
         const deletedata = (id:any)=>{
             dispatch(doDeleteCust(id))
         }
+
+        const columns = [
+            {
+              title: 'custId',
+              dataIndex: 'custId',
+              key: 'custId',
+            },
+            {
+              title: 'custName',
+              dataIndex: 'custName',
+              key: 'custName',
+            },
+            {
+              title: 'custCity',
+              dataIndex: 'custCity',
+              key: 'custCity',
+            },
+            {
+                title: 'Aksi',
+                key: 'action',
+                render: (_: any,record: { custId: any; }) => (
+                  <span>
+                    <button className="h-10 px-6 font-semibold rounded-md bg-black text-white"  onClick={()=>editdata(record.custId)}>edit</button> 
+                  </span>
+                ),
+            },
+            {
+                title: 'Aksi',
+                key: 'action',
+                render: (_: any,record: { custId: any; }) => (
+                  <span>
+                    <button className="h-10 px-6 font-semibold rounded-md bg-black text-white"  onClick={()=>deletedata(record.custId)}>delete</button>
+                  </span>
+                ),
+            },
+          ];         
         
   return (
     <div className="align-middle inline-block min-w-full shadow overflow-hidden bg-white shadow-dashboard px-8 pt-16 rounded-bl-lg rounded-br-lg">
         <a href="/dashboard/customers/addcust" className='h-10 px-6 font-semibold rounded-md bg-black text-white'>tambah</a>
-        <table className="min-w-full">
+        {/* <table className="min-w-full">
             <thead>
                 <tr>
                 <th className='px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider'>#</th>
@@ -52,7 +89,8 @@ export default function index() {
                 })
             }
             </tbody>
-        </table>
+        </table> */}
+        <Table dataSource={customers} columns={columns} />
     </div>
   )
 }

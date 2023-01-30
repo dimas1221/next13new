@@ -8,7 +8,9 @@ import { useRouter } from 'next/router'
 import Auth from '@/Redux/Service/auth'
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '@/Redux/Action/authAction'
-const inter = Inter({ subsets: ['latin'] })
+
+
+// const inter = Inter({ subsets: ['latin'] })
 
  const Home = () =>{
   const dispatch = useDispatch()
@@ -37,7 +39,7 @@ const inter = Inter({ subsets: ['latin'] })
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" /><div className="bg-blue-200 flex">
+      <><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" /><div className="bg-gradient-to-r from-gray-100 via-[#bce1ff] to-gray-100 flex">
         <div className="flex-col flex ml-auto mr-auto items-center w-full lg:w-2/3 md:w-3/5">
           <h1 className="font-bold text-2xl my-10 text-white"> Login </h1>
           <h6>status :</h6>
